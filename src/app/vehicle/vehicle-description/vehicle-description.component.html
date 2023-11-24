@@ -1,0 +1,53 @@
+<div class="vehicle">
+    <img src={{vehicle.imgUrl}} alt="">
+    <div class="vehicle_desc">
+        <p>{{vehicle.rating}}</p>
+        <p>{{vehicle.name}}</p>
+        <p>{{vehicle.price}}</p>
+        <p>{{vehicle.vehicleType}}</p>
+    </div>
+    <div class="quantity">
+        <button (click)="decrement()">-</button>
+        <p>{{quantity}}</p>
+        <button (click)="increment()">+</button>
+    </div>
+
+    <div>
+        <h2>Fuel type</h2>
+        <div *ngFor="let type of fuelType">
+            <label for={{type}}>{{type}}</label>
+            <input type="radio" name="fuel_type" id={{type}} value={{type}} [checked]="type===selectedFuelType&& 'checked'"  (change)="selectedFuelType=type">
+        </div>
+    </div>
+
+    <div>
+        <h2>Color</h2>
+        <div *ngFor="let color of colors">
+            <label for={{color}}>{{color}}</label>
+            <input type="radio" name="color_type" id={{color}} value={{color}} [checked]="color===selectedColor&& 'checked'" (change)="selectedColor=color">
+        </div>
+    </div>
+    <div class="vehicle_btns">
+        <button (click)="addToCart()">Add to cart</button>
+        <button>Buy now</button>
+    </div>
+    <div>
+        <h4>
+            Discount
+        </h4>
+        <span *ngFor="let discount of discounts,index as i">
+            {{discount.name.toLowerCase()}} : {{discount.price | number: '1.0-0'}}%
+            {{!(i===discounts.length-1)&& "|"}}
+        </span>
+    </div>
+    <div>
+        <h4>
+            Additional Charges
+        </h4>
+        <span *ngFor="let charge of charges; index as i">
+            {{charge.name.toLowerCase()}} : {{charge.price | number: '1.0-0'}}% {{!(i===charges.length-1)&&
+            "|"}}
+        </span>
+    </div>
+
+</div>

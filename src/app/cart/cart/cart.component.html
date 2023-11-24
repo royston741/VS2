@@ -1,0 +1,20 @@
+<div>
+    <div><button (click)="clearCart()">Clear cart</button></div>
+    <div *ngFor="let item of cart.cartItems ">
+        <img src={{item.vehicle.imgUrl}} alt="" style="max-width: 100px;max-width: 100px;">
+        <div>
+            <p> {{item.vehicle.name}}</p>
+            <p> {{item.vehicle.vehicleType}}</p>
+            <p> {{item.color}}</p>
+            <p> {{item.fuelType}}</p>
+            <p> {{item.quantity}}</p>
+            <p> {{item.finalPrice}}</p>
+        </div>
+        <button (click)="removeItemFromCart(item)">remove</button>
+    </div>
+    <div>
+        Cart total: {{cart.cartTotal}}
+  
+    <button (click)="navigateToPlaceOrder()">place order</button>
+    </div>
+</div>

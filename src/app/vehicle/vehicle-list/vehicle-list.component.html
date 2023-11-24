@@ -1,0 +1,41 @@
+<div class="ehicle_list_container">
+    <div class="vehicle_list_filter_container">
+
+        <app-select selectFor="Sort by" [options]="['All','rating',
+        'price --- low to high',
+        'price -- high to low']" (selectEventEmitter)="onSelectSortBy($event)"></app-select>
+
+        <app-select selectFor="Vehicle type :" [options]="['All','CAR',
+        'BIKE']" (selectEventEmitter)="onSelectVehicleType($event)"></app-select>
+
+        <app-select *ngIf="filter.vehicleType==='BIKE'" selectFor="Two wheeler type :" [options]="['All','SCOOTY',
+        'SPORTS']" (selectEventEmitter)="onSelectTwoWheelerType($event)"></app-select>
+    </div>
+
+    <div class="price_filter">
+        <Label>Start price : </Label>
+        <input #element type="number" [value]="filter.startingPrice"
+            (change)="onPriceChange({type:'start',value:element.value})" [min]="startPrice">
+        <Label>End price : </Label>
+        <input #element2 type="number" [value]="filter.endingPrice"
+            (change)="onPriceChange({type:'end',value:element2.value})" [max]="endPrice">
+        <button (click)="getAllVehiclesData()">Search</button>
+    </div>
+
+    <ul class="vehicle_list">
+        <li *ngFor="let vehicle of vehicles" style="background-color: aqua;"
+            (click)="onNavigateToVehicleDescription(vehicle.id)">
+            <div>
+                <img src={{vehicle.imgUrl}} alt={{vehicle.imgUrl}} style="max-width: 300px; max-height: 300px;">
+                <span class="vehicle_desc">
+                    <p>{{vehicle.rating}}</p>
+                    <p> {{vehicle.name}} </p>
+                    <p>{{vehicle.price}}</p>
+                </span>
+            </div>
+        </li>
+    </ul>
+    <div *ngFor="let err of errMssg" class="mssg">
+        <p>{{err}}</p>
+    </div>
+</div>

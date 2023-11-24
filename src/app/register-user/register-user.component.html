@@ -1,0 +1,52 @@
+<form (submit)="onSubmitForm($event)">
+    <h1>Register {{formFor.toLowerCase()}}</h1>
+
+    <app-input
+        [inputAttribute]="[{key:'type',value:'text'},{key:'placeholder',value:'Fitst name'}]"
+        [inputValue]="formFirstName.value"
+        errMssg="Invalid first name" [validateInput]="validateName"
+        (inputEventEmmiter)="formFirstName=$event"></app-input>
+
+    <app-input
+        [inputAttribute]="[{key:'type',value:'text'},{key:'placeholder',value:'Last name'},{key:'value',value:formLastName.value}]"
+        [inputValue]="formLastName.value"
+        errMssg="Invalid last name" [validateInput]="validateName"
+        (inputEventEmmiter)="formLastName=$event"></app-input>
+
+    <app-input
+        [inputAttribute]="[{key:'type',value:'text'},{key:'placeholder',value:'Email'},{key:'value',value:formEmail.value}]"
+        [inputValue]="formEmail.value"
+        errMssg="Invalid Email" [validateInput]="validateEmail" (inputEventEmmiter)="formEmail=$event"></app-input>
+
+    <app-input
+        [inputAttribute]="[{key:'type',value:'number'},{key:'placeholder',value:'phone'},{key:'value',value:formPhoneNo.value}]"
+        [inputValue]="formPhoneNo.value"
+        errMssg="Invalid phone number" [validateInput]="validatePhoneNo"
+        (inputEventEmmiter)="formPhoneNo=$event"></app-input>
+
+    <app-input
+        [inputAttribute]="[{key:'type',value:'text'},{key:'placeholder',value:'password'},{key:'value',value:formPassword.value}]"
+        errMssg="Invalid password" [validateInput]="validatePassword"
+        [inputValue]="formPassword.value"
+        (inputEventEmmiter)="formPassword=$event"></app-input>
+
+    <div *ngIf="formFor==='CUSTOMER'">
+        <textarea #address (keyup)="validateAddress(address.value)" (blur)="validateAddress(address.value)"
+            name="address" [(ngModel)]="formAddress.value"></textarea>
+        <p *ngIf="!(formAddress.valid )">please enter valid address</p>
+    </div>
+
+    <span *ngIf="responseSuccess">
+        Success
+    </span>
+    <div *ngIf="responseErrorMessage.length>0">
+        <p *ngFor="let mssg of responseErrorMessage">{{mssg}}</p>
+    </div>
+
+    <button
+        [disabled]="!(formFirstName.valid&&formLastName.valid&&formEmail.valid&&formPhoneNo.valid&&formPassword.valid&& formAddress.value.length>8)">submit</button>
+
+    <p *ngIf="formFor==='CUSTOMER'">Already have a account?
+        <a (click)="onNavigate()">Log in.</a>
+    </p>
+</form>
